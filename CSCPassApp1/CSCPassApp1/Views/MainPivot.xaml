@@ -71,15 +71,43 @@
                             Tap="statusadd_Tap"/>
                     </Grid>
                     <Grid Grid.Row="1">
-                        <ListBox Name="statusListBox" 
-                                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <ListBox Name="FeedListBox">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding}" 
-                                               FontSize="20"
-                                               Foreground="Gray"
-                                               Margin="15,15"
-                                               TextWrapping="Wrap"/>
+                                    <Grid Margin="15,15" Loaded="Grid_Loaded">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="80"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="/Images/dp.png"
+                   Grid.Column="0"
+                                   Height="60"
+                               Width="60"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                                           Name="DP"/>
+                                            <Grid Grid.Column="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="50"/>
+                                                    <RowDefinition Height="30"/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="{Binding name}" Foreground="Black" VerticalAlignment="Center" FontSize="30"/>
+                                                <TextBlock FontSize="15" Text="{Binding timestamp}" Grid.Row="1" Foreground="Gray" FontWeight="Light" VerticalAlignment="Top"/>
+                                            </Grid>
+                                        </Grid>
+                                        <TextBlock
+                        Grid.Row="1"
+                        Foreground="Black"
+                        FontWeight="Light"
+                        Text="{Binding status}"
+                        TextWrapping="Wrap"
+                        FontSize="22"/>
+                                    </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
@@ -293,7 +321,33 @@
                                         FontSize="30"
                                         Margin="0,10,0,0"/>
                                     </Grid>
-                                    <ListBox Name="quallistbox" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <!--<toolkit:PhoneTextBox 
+                            Hint="What's on your mind"
+                            BorderBrush="Gray"
+                            MaxHeight="200"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True" 
+                            TextChanged="PhoneTextBox_TextChanged"/>-->
+                                    <toolkit:PhoneTextBox 
+                            Name="qbox"
+                            BorderBrush="Gray"
+                           Hint="Add Qualification"
+                            Foreground="Black"
+                            >
+                                    </toolkit:PhoneTextBox>
+                                    <Image 
+                            Grid.Column="1"
+                            Source="/Images/add.png"
+                            Height="35"
+                                        Name="qualAdd"
+                                        Tap="qualAdd_Tap"/>
+                                </Grid>
+                                <ListBox Name="quallistbox" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
                                                 <ListBoxItem  Margin="15,15,0,0">

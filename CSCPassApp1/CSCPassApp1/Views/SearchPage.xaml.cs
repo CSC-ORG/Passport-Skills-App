@@ -70,7 +70,7 @@ namespace CSCPassApp1.Views
 
             JArray statusArray = JArray.Parse(BaseObj["status"].ToString());
             JArray profileArray = JArray.Parse(BaseObj["profile"].ToString());
-
+            statusCollection.Clear();
             foreach(var item in statusArray)
             {
                 Status s = new Status(item["status"].ToString(), item["name"].ToString(), item["image"].ToString(), item["email"].ToString(), item["timestamp"].ToString());
@@ -79,6 +79,8 @@ namespace CSCPassApp1.Views
             FeedListBox.ItemsSource = statusCollection;
             FeedListBox.DataContext = statusCollection;
 
+
+            peopleCollection.Clear();
             foreach (var item in profileArray)
             {
                 People p = new People(item["name"].ToString(), item["image"].ToString(), item["email"].ToString());

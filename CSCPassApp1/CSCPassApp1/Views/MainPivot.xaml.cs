@@ -126,6 +126,12 @@ namespace CSCPassApp1.Views
             // a new CompositeTransform that we need to grab a hold of
             Scroller.MouseMove += ScrollerOnMouseMove;
 
+
+            WebClient wc = new WebClient();
+            wc.DownloadStringAsync(new Uri("http://cscpassapp1.cloudapp.net/root/statusreturn.php?user="+App.userid, UriKind.Absolute));
+            wc.DownloadStringCompleted += statusreturn;
+
+
             if(!string.IsNullOrEmpty(profilejson))
             {
 
@@ -201,10 +207,15 @@ namespace CSCPassApp1.Views
 
 
                 myprofile.mynewsfeed = new ObservableCollection<string>();
-                statusListBox.ItemsSource = myprofile.mynewsfeed;
-                statusListBox.DataContext = myprofile.mynewsfeed;
+                //statusListBox.ItemsSource = myprofile.mynewsfeed;
+                //statusListBox.DataContext = myprofile.mynewsfeed;
             }
 
+        }
+
+        private void statusreturn(object sender, DownloadStringCompletedEventArgs e)
+        {
+            MessageBox.Show(e.Result);
         }
 
         private void ScrollerOnMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
@@ -624,6 +635,18 @@ namespace CSCPassApp1.Views
             else
             {
                 MessageBox.Show("Title cannot be empty");
+            }
+        }
+
+        private void qualAdd_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if(!string.IsNullOrEmpty(qbox.Text))
+            {
+                WebClient wc = new WebClient();
+                wc.DownloadStringAsync(new Uri("http://cscpassapp1.cloudapp.net/root/addqual.php?qual=" + qbox.Text + "&user=" + App.userid, UriKind.Absolute));
+                wc.DownloadStringCompleted += achievementsresponse;
+                myprofile.qualification.Add(qbox.Text);
+                qbox.Text = "";
             }
         }
 
