@@ -71,7 +71,11 @@
                         Content="Sign Up"
                         Foreground="Black"
                         BorderBrush="Black" Click="SignUpButton_Click"/>
-                
+                <Button Name="LinkedIn"
+                        Content="LinkedIn"
+                        Foreground="Black"
+                        BorderBrush="Black"
+                        Click="LinkedIn_Click"/>
             </StackPanel>
         </Grid>
 
@@ -82,6 +86,7 @@
 
             Before shipping remove this XAML and the image itself.-->
         <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0,-32,0,0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
+        <phone:WebBrowser Name="AuthenticationBrowser" Visibility="Collapsed" Navigated="AuthenticationBrowser_Navigated"/>
     </Grid>
 
 </phone:PhoneApplicationPage>

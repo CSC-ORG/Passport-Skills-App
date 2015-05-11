@@ -41,14 +41,48 @@
                         </Grid.ColumnDefinitions>
                         <toolkit:PhoneTextBox 
                             Hint="What's on your mind"
+                            Name="statusBox"
                             BorderBrush="Gray"
                             MaxHeight="200"
                             TextWrapping="Wrap"
-                            AcceptsReturn="True" TextChanged="PhoneTextBox_TextChanged"/>
+                            AcceptsReturn="True" 
+                            />
+                        <!--<toolkit:AutoCompleteBox 
+                            Name="acbox"
+                            BorderBrush="Gray"
+                            MaxDropDownHeight="300"
+                            MinimumPopulateDelay="0"
+                            Foreground="Black"
+                            ItemsSource="{Binding suggestion}"
+                            TextChanged="AutoCompleteBox_TextChanged">
+                            <toolkit:AutoCompleteBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}"
+                                               Foreground="Black"
+                                               FontSize="20"/>
+                                </DataTemplate>
+                            </toolkit:AutoCompleteBox.ItemTemplate>
+                        </toolkit:AutoCompleteBox>-->
                         <Image 
                             Grid.Column="1"
                             Source="/Images/add.png"
-                            Height="35"/>
+                            Height="35"
+                            Name="statusadd"
+                            Tap="statusadd_Tap"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <ListBox Name="statusListBox" 
+                                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" 
+                                               FontSize="20"
+                                               Foreground="Gray"
+                                               Margin="15,15"
+                                               TextWrapping="Wrap"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </Grid>
                 </Grid>
             </phone:PivotItem>
@@ -59,7 +93,7 @@
                     <TextBlock Text="My Profile" Foreground="Black" FontSize="40"/>
                 </phone:PivotItem.Header>
                 
-                    <Grid Margin="10,10" Background="White">
+                    <Grid Background="White">
                     
                         <Grid x:Name="ImageContainer"
               VerticalAlignment="Top"
@@ -74,7 +108,7 @@
                                    Height="500"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
-                   x:Name="Image" />
+                   x:Name="Image" Margin="-20,4,-20,-4" />
                         </Grid>
                     
                     <ScrollViewer x:Name="Scroller"
@@ -92,59 +126,253 @@
                                     <TextBlock Style="{StaticResource PhoneTextTitle1Style}"
                                Margin="24,0"
                                TextWrapping="Wrap"
+                                               Name="userid"
                                Text="Name" />
                                     <TextBlock Style="{StaticResource PhoneTextTitle2Style}"
-                               Margin="24,-20,0,-10"
+                               Margin="24,-10,0,-10"
                                TextWrapping="Wrap"
-                               Text="xyz@csc.com" />
+                               Text="xyz@csc.com"
+                                               Name="emailid"/>
                                 </StackPanel>
                             
 
                             <StackPanel x:Name="ContentPanel"
                             Grid.Row="1"
-                            Background="White">
-                                <Grid>
-                                    <TextBlock 
+                            Background="White" Margin="0,10,0,-10">
+                              
+                                    <!--<Grid>
+                                        <TextBlock 
                                         Text="Personal Detalis :"
                                         Foreground="DarkGray"
                                         FontSize="30"
                                         Margin="0,10,0,0"/>
-                                </Grid>
-                                <Grid>
-                                    <TextBlock 
+                                    </Grid>-->
+                                    <Grid>
+                                        <TextBlock 
                                         Text="Experience :"
                                         Foreground="DarkGray"
                                         FontSize="30"
                                         Margin="0,10,0,0"/>
-                                </Grid>
+                                    </Grid>
                                 <Grid>
-                                    <TextBlock 
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <toolkit:PhoneTextBox
+                                            Hint="Title"
+                            Name="exTitleBox"
+                            BorderBrush="Gray"
+                            MaxHeight="200"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="From :"
+                                                       Foreground="Black"
+                                                       FontWeight="Light"
+                                                       VerticalAlignment="Center"/>
+                                            
+                                            <toolkit:DatePicker 
+                                                Name="from_dt" 
+                                                 Foreground="White"
+                                                                Background="Black"
+                                                ValueStringFormat="{}{0:d}"
+                                                />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="To :"
+                                                       Foreground="Black"
+                                                       FontWeight="Light"
+                                                       VerticalAlignment="Center"/>
+                                            <RadioButton Name="rbpresent" Background="Black" Foreground="White" GroupName="to_dtgrp" IsChecked="true">
+                                                <RadioButton.Content>
+                                                    <TextBlock Text="Present" Foreground="Black"/>
+                                                </RadioButton.Content>
+                                            </RadioButton>
+                                            <RadioButton Name="rbtd" Background="Black" Foreground="White" GroupName="to_dtgrp">
+                                                <RadioButton.Content>
+                                                    <toolkit:DatePicker 
+                                                Name="to_dt" Foreground="White"
+                                                                Background="Black"/>
+
+
+                                                </RadioButton.Content>
+                                            </RadioButton>
+                                        </StackPanel>
+                                        </StackPanel>
+                                  
+
+                                    <Image 
+                            Grid.Column="1"
+                            Source="/Images/add.png"
+                            Height="35"
+                                        Name="ExpAdd"
+                                        Tap="ExpAdd_Tap"
+                                        VerticalAlignment="Center"/>
+                                </Grid>
+
+                                <ListBox Name="ExperienceListBox" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <ListBoxItem HorizontalContentAlignment="Stretch">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding title}"
+                                                       Foreground="Black"
+                                                       FontSize="25"
+                                                       />
+                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                            <TextBlock Text="{Binding from_dt}"
+                                                       Foreground="Black"
+                                                       FontWeight="Light"/>
+                                                            <TextBlock Text="{Binding to_dt}"
+                                                           Margin="75,0,0,0"
+                                                           Foreground="Black"
+                                                           FontWeight="Light"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </ListBoxItem>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <Grid>
+                                        <TextBlock 
                                         Text="Skills :"
                                         Foreground="DarkGray"
                                         FontSize="30"
                                         Margin="0,10,0,0"/>
-                                </Grid>
-                                <Grid>
-                                    <TextBlock 
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        <!--<toolkit:PhoneTextBox 
+                            Hint="What's on your mind"
+                            BorderBrush="Gray"
+                            MaxHeight="200"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True" 
+                            TextChanged="PhoneTextBox_TextChanged"/>-->
+                                        <toolkit:AutoCompleteBox 
+                            Name="acbox"
+                            BorderBrush="Gray"
+                            MaxDropDownHeight="300"
+                            MinimumPopulateDelay="0"
+                            Foreground="Black"
+                            ItemsSource="{Binding suggestion}"
+                            TextChanged="AutoCompleteBox_TextChanged">
+                                            <toolkit:AutoCompleteBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}"
+                                               Foreground="Black"
+                                               FontSize="20"/>
+                                                </DataTemplate>
+                                            </toolkit:AutoCompleteBox.ItemTemplate>
+                                        </toolkit:AutoCompleteBox>
+                                        <Image 
+                            Grid.Column="1"
+                            Source="/Images/add.png"
+                            Height="35"
+                                        Name="skillsAdd"
+                                        Tap="skillsAdd_Tap"/>
+                                    </Grid>
+                                    <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" Name="skilllistbox">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <ListBoxItem  Margin="15,15,0,0">
+                                                    <TextBlock Text="{Binding}" Foreground="Black"/>
+                                                </ListBoxItem>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <Grid>
+                                        <TextBlock 
                                         Text="Qualification :"
                                         Foreground="DarkGray"
                                         FontSize="30"
                                         Margin="0,10,0,0"/>
-                                </Grid>
-                                <Grid>
-                                    <TextBlock 
+                                    </Grid>
+                                    <ListBox Name="quallistbox" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <ListBoxItem  Margin="15,15,0,0">
+                                                    <TextBlock Text="{Binding}" Foreground="Black"/>
+                                                </ListBoxItem>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <Grid>
+                                        <TextBlock 
                                         Text="Achievements :"
                                         Foreground="DarkGray"
                                         FontSize="30"
                                         Margin="0,10,0,0"/>
+                                    </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <toolkit:PhoneTextBox
+                                            Hint="Title"
+                            Name="acTitleBox"
+                            BorderBrush="Gray"
+                            MaxHeight="200"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True"/>
+                                        <toolkit:PhoneTextBox
+                                            Hint="Description"
+                            Name="acDescBox"
+                            BorderBrush="Gray"
+                            MaxHeight="200"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True"/>
+                                    </StackPanel>
+
+                                    <Image 
+                            Grid.Column="1"
+                            Source="/Images/add.png"
+                            Height="35"
+                                        Name="AchievementsAdd"
+                                        Tap="AchievementsAdd_Tap"
+                                        VerticalAlignment="Center"/>
                                 </Grid>
+                                    <ListBox Name="AchievementsListBox" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <ListBoxItem HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                                             Margin="0,0,0,10">
+
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding title}"
+                                                       Foreground="Black"
+                                                       FontSize="25"
+                                                       />
+                                                        <TextBlock Text="{Binding description}"
+                                                           Foreground="Black"
+                                                           FontWeight="Light"/>
+
+                                                    </StackPanel>
+                                                </ListBoxItem>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <!--<Button Content="linkedin_access" Click="Button_Click" Foreground="Black" BorderBrush="Black"/>-->
+                               
                             </StackPanel>
                             </Grid>
                         </ScrollViewer>
-                    </Grid>
+                    <phone:WebBrowser Navigated="AuthenticationBrowser_Navigated" Foreground="Black" Name="AuthenticationBrowser"  Visibility="Collapsed" Height="400" Width="400"/>
+                </Grid>
                 
             </phone:PivotItem>
         </phone:Pivot>
     </Grid>
-    
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="Gray">
+            <shell:ApplicationBarIconButton IconUri="/Images/Search.png" Text="Search" Click="ApplicationBarIconButton_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>

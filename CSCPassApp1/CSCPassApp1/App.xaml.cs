@@ -18,6 +18,9 @@ namespace CSCPassApp1
         /// <returns>The root frame of the Phone Application.</returns>
         public static PhoneApplicationFrame RootFrame { get; private set; }
 
+        public static string root = "http://cscpassapp1.cloudapp.net/root/";
+        public static string userid;
+
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>

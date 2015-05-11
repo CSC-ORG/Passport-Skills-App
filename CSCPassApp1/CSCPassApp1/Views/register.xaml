@@ -30,26 +30,37 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <ScrollViewer>
             <StackPanel>
-                <TextBlock Text="Email" Foreground="Black" FontSize="40"/>
-                <TextBox BorderBrush="Blue" Name="email" Foreground="Black"> </TextBox>
 
-                <TextBlock Text="Password" Foreground="Black" FontSize="40"/>
-                    <PasswordBox BorderBrush="Blue" Name="pass" Foreground="Black"></PasswordBox>
+                    <TextBlock Text="Name :" Foreground="Black" />
+                    <TextBox BorderBrush="Black" 
+                         Name="name1" Foreground="Black"></TextBox>
 
-                    <TextBlock Text="Confirm Password" Foreground="Black" FontSize="40"/>
-                    <PasswordBox BorderBrush="Blue" Name="cpass" Foreground="Black" PasswordChanged="cpass_PasswordChanged"></PasswordBox>
+
+                    <TextBlock Text="Email :" Foreground="Black" />
+                <TextBox BorderBrush="Black" 
+                         Name="email" Foreground="Black"> </TextBox>
+
+                <TextBlock Text="Password :" Foreground="Black" />
+                    <PasswordBox BorderBrush="Black" 
+                                 Name="pass" Foreground="Black"/>
+                    <TextBlock Text="Confirm Password :" Foreground="Black"/>
+                    <PasswordBox BorderBrush="Black" 
+                                 Name="cpass" Foreground="Black" PasswordChanged="cpass_PasswordChanged"/>
                     <TextBlock Foreground="Black" Text="Passwords do not match" Name="match" Visibility="Collapsed"/>
 
-                    <TextBlock Text="Mobile No." Foreground="Black" FontSize="40"/>
-                    <TextBox BorderBrush="Blue" Name="mob" Foreground="Black"></TextBox>
+                    <TextBlock Text="Mobile No. :" Foreground="Black"/>
+                    <TextBox BorderBrush="Black" 
+                             Name="mob" Foreground="Black"/>
 
-                    <TextBlock Text="Location" Foreground="Black" FontSize="40"/>
-                    <TextBox BorderBrush="Blue" Name="loc" Foreground="Black"></TextBox>
+                    <TextBlock Text="Location :" Foreground="Black"/>
+                    <TextBox BorderBrush="Black" 
+                             Name="loc" Foreground="Black"></TextBox>
 
-                    <TextBlock Text="Designation" Foreground="Black" FontSize="40"/>
-                    <TextBox BorderBrush="Blue" Name="desig" Foreground="Black"></TextBox>
+                    <TextBlock Text="Designation :" Foreground="Black"/>
+                    <TextBox BorderBrush="Black" 
+                             Name="desig" Foreground="Black"></TextBox>
 
-                    <Button Name="sub" Content=" Register" Foreground="Black" BorderBrush="Black" Width="421" Height="90" FontSize="35" />
+                    <Button Name="reg" Content=" Register" Foreground="Black" BorderBrush="Black" Click="register_Click"/>
 
 
                 </StackPanel>

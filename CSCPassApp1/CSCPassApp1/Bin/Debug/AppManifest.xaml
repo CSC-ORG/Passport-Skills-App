@@ -3,5 +3,9 @@
     <AssemblyPart x:Name="CSCPassApp1" Source="CSCPassApp1.dll" />
     <AssemblyPart x:Name="Microsoft.Phone.Controls" Source="Microsoft.Phone.Controls.dll" />
     <AssemblyPart x:Name="Microsoft.Phone.Controls.Toolkit" Source="Microsoft.Phone.Controls.Toolkit.dll" />
+    <AssemblyPart x:Name="Newtonsoft.Json" Source="Newtonsoft.Json.dll" />
+    <AssemblyPart x:Name="Spring.Rest" Source="Spring.Rest.dll" />
+    <AssemblyPart x:Name="Spring.Social.Core" Source="Spring.Social.Core.dll" />
+    <AssemblyPart x:Name="Spring.Social.LinkedIn" Source="Spring.Social.LinkedIn.dll" />
   </Deployment.Parts>
 </Deployment>
