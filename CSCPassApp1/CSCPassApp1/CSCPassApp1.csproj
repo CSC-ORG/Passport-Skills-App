@@ -111,6 +111,9 @@
     <Compile Include="Views\MainPivot.xaml.cs">
       <DependentUpon>MainPivot.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\profile.xaml.cs">
+      <DependentUpon>profile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\register.xaml.cs">
       <DependentUpon>register.xaml</DependentUpon>
     </Compile>
@@ -128,6 +131,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainPivot.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\profile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -170,3 +170,4 @@ C:\Users\nipun\Documents\Visual Studio 2013\Projects\CSCPassApp1\Passport-Skills
 C:\Users\nipun\Documents\Visual Studio 2013\Projects\CSCPassApp1\Passport-Skills-App-2015\CSCPassApp1\CSCPassApp1\obj\Debug\CSCPassApp1.dll
 C:\Users\nipun\Documents\Visual Studio 2013\Projects\CSCPassApp1\Passport-Skills-App-2015\CSCPassApp1\CSCPassApp1\obj\Debug\CSCPassApp1.pdb
 C:\Users\nipun\Documents\Visual Studio 2013\Projects\CSCPassApp1\Passport-Skills-App-2015\CSCPassApp1\CSCPassApp1\obj\Debug\XapCacheFile.xml
+C:\Users\nipun\Documents\Visual Studio 2013\Projects\CSCPassApp1\Passport-Skills-App-2015\CSCPassApp1\CSCPassApp1\obj\Debug\Views\profile.g.cs

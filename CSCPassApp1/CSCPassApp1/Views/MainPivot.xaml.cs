@@ -63,7 +63,7 @@ namespace CSCPassApp1.Views
         public string location { get; set; }
         public ObservableCollection<string> skill { get; set; }
         public ObservableCollection<string> qualification { get; set; }
-        public ObservableCollection<string> mynewsfeed { get; set; }
+       // public ObservableCollection<string> mynewsfeed { get; set; }
         public ObservableCollection<UserAchievements> myachievements { get; set; }
         public ObservableCollection<UserExp> myexp { get; set; }
     }
@@ -126,10 +126,6 @@ namespace CSCPassApp1.Views
             // a new CompositeTransform that we need to grab a hold of
             Scroller.MouseMove += ScrollerOnMouseMove;
 
-
-            WebClient wc = new WebClient();
-            wc.DownloadStringAsync(new Uri("http://cscpassapp1.cloudapp.net/root/statusreturn.php?user="+App.userid, UriKind.Absolute));
-            wc.DownloadStringCompleted += statusreturn;
 
 
             if(!string.IsNullOrEmpty(profilejson))
@@ -206,17 +202,52 @@ namespace CSCPassApp1.Views
                 quallistbox.DataContext = myprofile.qualification;
 
 
-                myprofile.mynewsfeed = new ObservableCollection<string>();
+                WebClient wc = new WebClient();
+                wc.DownloadStringAsync(new Uri(App.root + "statusreturn.php?user=" + App.userid, UriKind.Absolute));
+                wc.DownloadStringCompleted += statusreturn;
+
+
+
+            //    myprofile.mynewsfeed = new ObservableCollection<string>();
                 //statusListBox.ItemsSource = myprofile.mynewsfeed;
                 //statusListBox.DataContext = myprofile.mynewsfeed;
             }
 
         }
 
+        ObservableCollection<Status> statusCollection = new ObservableCollection<Status>();
         private void statusreturn(object sender, DownloadStringCompletedEventArgs e)
         {
-            MessageBox.Show(e.Result);
+           // MessageBox.Show(e.Result);
+            JObject BaseObj = JObject.Parse(e.Result);
+            JArray statusArray = JArray.Parse(BaseObj["status"].ToString());
+            statusCollection.Clear();
+            foreach (var item in statusArray)
+            {
+                Status s = new Status(item["status"].ToString(), item["name"].ToString(), item["image"].ToString(), item["email"].ToString(), item["timestamp"].ToString());
+                statusCollection.Add(s);
+            }
+            FeedListBox.ItemsSource = statusCollection;
+            FeedListBox.DataContext = statusCollection;
+
         }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            var g = sender as Grid;
+            var dc = g.DataContext as Status;
+            var i = g.FindName("DP") as Image;
+            if (!string.IsNullOrEmpty(dc.image))
+            {
+                var uri = App.root + dc.image;
+                BitmapImage bm = new BitmapImage();
+                bm.CreateOptions = BitmapCreateOptions.BackgroundCreation;
+                bm.UriSource = new Uri(uri);
+                i.Source = bm;
+
+            }
+        }
+
 
         private void ScrollerOnMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
@@ -353,7 +384,7 @@ namespace CSCPassApp1.Views
 
         private void accesstokenreceived(Spring.Rest.Client.RestOperationCompletedEventArgs<OAuthToken> obj)
         {
-            MessageBox.Show(obj.Response.Value);
+         //   MessageBox.Show(obj.Response.Value);
         }
 
      
@@ -476,7 +507,7 @@ namespace CSCPassApp1.Views
             if (!string.IsNullOrEmpty(acbox.Text))
             {
                 WebClient wc = new WebClient();
-                wc.DownloadStringAsync(new Uri("http://cscpassapp1.cloudapp.net/root/skillsearch.php?skill=" + acbox.Text, UriKind.Absolute));
+                wc.DownloadStringAsync(new Uri(App.root+"skillsearch.php?skill=" + acbox.Text, UriKind.Absolute));
                 wc.DownloadStringCompleted += wc_DownloadStringCompleted;
             }
         }
@@ -516,7 +547,7 @@ namespace CSCPassApp1.Views
             {
                 myprofile.skill.Add(acbox.Text);
                 WebClient wc = new WebClient();
-                wc.DownloadStringAsync(new Uri("http://cscpassapp1.cloudapp.net/root/skilladd.php?skill="+acbox.Text+"&user="+App.userid, UriKind.Absolute));
+                wc.DownloadStringAsync(new Uri(App.root+"skilladd.php?skill="+acbox.Text+"&user="+App.userid, UriKind.Absolute));
                 wc.DownloadStringCompleted += skilladdedResponse;
                 acbox.Text = "";
             }
@@ -537,9 +568,10 @@ namespace CSCPassApp1.Views
             {
                // myprofile.Add(statusBox.Text);
                 WebClient wc = new WebClient();
-                wc.DownloadStringAsync(new Uri("http://cscpassapp1.cloudapp.net/root/statusadd.php?status=" + statusBox.Text + "&user=" + App.userid, UriKind.Absolute));
+                wc.DownloadStringAsync(new Uri(App.root+"statusadd.php?status=" + statusBox.Text + "&user=" + App.userid, UriKind.Absolute));
                 wc.DownloadStringCompleted += statusAddedResponse;
-                myprofile.mynewsfeed.Insert(0,statusBox.Text);
+                Status s = new Status(statusBox.Text, myprofile.name, myprofile.image, myprofile.email, DateTime.Now.Date.ToString());
+                statusCollection.Insert(0, s);
                 statusBox.Text = "";
             }
         }
@@ -555,7 +587,7 @@ namespace CSCPassApp1.Views
             if (!string.IsNullOrEmpty(acTitleBox.Text))
             {
                 WebClient wc = new WebClient();
-                wc.DownloadStringAsync(new Uri("http://cscpassapp1.cloudapp.net/root/addachieve.php?title=" + acTitleBox.Text + "&user=" + App.userid + "&descr=" + acDescBox.Text, UriKind.Absolute));
+                wc.DownloadStringAsync(new Uri(App.root+"addachieve.php?title=" + acTitleBox.Text + "&user=" + App.userid + "&descr=" + acDescBox.Text, UriKind.Absolute));
                 wc.DownloadStringCompleted += achievementsresponse;
 
                 UserAchievements ua = new UserAchievements(acTitleBox.Text, acDescBox.Text);
@@ -623,7 +655,7 @@ namespace CSCPassApp1.Views
                 }
 
                 WebClient wc = new WebClient();
-                wc.DownloadStringAsync(new Uri("http://cscpassapp1.cloudapp.net/root/addexp.php?title=" + title + "&user=" + App.userid + "&from_dt=" + fromdate+"&to_dt="+todate, UriKind.Absolute));
+                wc.DownloadStringAsync(new Uri(App.root+"addexp.php?title=" + title + "&user=" + App.userid + "&from_dt=" + fromdate+"&to_dt="+todate, UriKind.Absolute));
                 wc.DownloadStringCompleted += achievementsresponse;
 
                 UserExp ua = new UserExp(title, fromdate,todate);
@@ -643,7 +675,7 @@ namespace CSCPassApp1.Views
             if(!string.IsNullOrEmpty(qbox.Text))
             {
                 WebClient wc = new WebClient();
-                wc.DownloadStringAsync(new Uri("http://cscpassapp1.cloudapp.net/root/addqual.php?qual=" + qbox.Text + "&user=" + App.userid, UriKind.Absolute));
+                wc.DownloadStringAsync(new Uri(App.root+"addqual.php?qual=" + qbox.Text + "&user=" + App.userid, UriKind.Absolute));
                 wc.DownloadStringCompleted += achievementsresponse;
                 myprofile.qualification.Add(qbox.Text);
                 qbox.Text = "";

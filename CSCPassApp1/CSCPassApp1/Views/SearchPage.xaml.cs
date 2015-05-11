@@ -65,7 +65,7 @@ namespace CSCPassApp1.Views
 
         private void wc_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
-            MessageBox.Show(e.Result);
+           // MessageBox.Show(e.Result);
             JObject BaseObj = JObject.Parse(e.Result);
 
             JArray statusArray = JArray.Parse(BaseObj["status"].ToString());
@@ -120,6 +120,23 @@ namespace CSCPassApp1.Views
                 i.Source = bm;
 
             }
+        }
+
+        private void Grid_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            var x = sender as Grid;
+            var dc = x.DataContext as Status;
+
+            NavigationService.Navigate(new Uri("/Views/profile.xaml?email="+dc.email, UriKind.Relative));
+           // MessageBox.Show(dc.email);
+        }
+
+        private void Grid_Tap_1(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            var x = sender as Grid;
+            var dc = x.DataContext as People;
+            NavigationService.Navigate(new Uri("/Views/profile.xaml?email=" + dc.email, UriKind.Relative));
+            // MessageBox.Show(dc.email);
         }
     }
 }

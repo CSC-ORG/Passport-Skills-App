@@ -39,7 +39,7 @@
                 <ListBox Name="FeedListBox">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="15,15" Loaded="Grid_Loaded">
+                            <Grid Margin="15,15" Loaded="Grid_Loaded" Tap="Grid_Tap">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="80"/>
                                     <RowDefinition Height="*"/>
@@ -87,7 +87,7 @@
                 <ListBox Name="PeopleListBox">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="15,15" Loaded="Grid_Loaded_1">
+                            <Grid Margin="15,15" Loaded="Grid_Loaded_1" Tap="Grid_Tap_1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="100"/>
